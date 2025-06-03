@@ -31,7 +31,7 @@ def generate():
 
     # 4. Render video
     try:
-        video_path = render_manim(script_path, class_name, TEMP_DIR)
+        video_path = render_manim(script_path, TEMP_DIR)
     except Exception as e:
         return jsonify({"error": f"Render failed: {e}"}), 500
 
