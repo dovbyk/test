@@ -8,7 +8,11 @@ GEMINI = os.getenv("GENAI_API_KEY")
 
 genai.configure(api_key=GEMINI)
 
-def generate_manim_script(user_prompt, filename="manim_output6.py"):
+def generate_manim_script(user_prompt, filename="manim_output6.py", directory = "temp"):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    file_path = os.path.join(directory, filename)
+    
     model = genai.GenerativeModel("gemini-2.0-flash")
     prompt = ("""
 You are a Manim educational animation generator. Create simple, clear animations with synchronized voiceover that follow this EXACT format:
@@ -67,8 +71,10 @@ Generate complete, working code that follows this exact structure. Focus on clar
     if response.text:
         with open(filename, "w", encoding="utf-8") as f:
             f.write(response.text)
-        print(f" Manim script written to '{filename}'")
-        return filename
+        
+        abs_path = os.path.abspath(file_path)
+        print(f" Manim script written to '{abs_path}'")
+        return abs_path
 
     else:
         print("No response from Gemini.")
