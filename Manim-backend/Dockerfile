@@ -36,4 +36,4 @@ COPY . .
 EXPOSE 5000
 
 # Use Gunicorn for production, with 2 worker processes
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "server:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "120", "--workers", "1", "server:app"]
