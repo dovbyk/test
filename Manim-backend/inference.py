@@ -69,7 +69,7 @@ Generate complete, working code that follows this exact structure. Focus on clar
 
 
     if response.text:
-        with open(filename, "w", encoding="utf-8") as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(response.text)
         
         abs_path = os.path.abspath(file_path)
