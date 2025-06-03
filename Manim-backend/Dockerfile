@@ -10,8 +10,19 @@ WORKDIR /app
 
 # Install system dependencies (for Manim and fonts)
 RUN apt-get update && \
-    apt-get install -y ffmpeg libcairo2-dev libpango1.0-dev texlive texlive-latex-extra texlive-fonts-recommended dvipng dvisvgm && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y \
+        build-essential \
+        pkg-config \
+        ffmpeg \
+        libcairo2-dev \
+        libpango1.0-dev \
+        texlive \
+        texlive-latex-extra \
+        texlive-fonts-recommended \
+        dvipng \
+        dvisvgm \
+    && rm -rf /var/lib/apt/lists/*
+
 
 # Install Python dependencies
 COPY requirements.txt .
