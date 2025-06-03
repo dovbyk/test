@@ -18,7 +18,7 @@ def generate():
     # 1. Get Manim script from LLM
     script_path = generate_manim_script(prompt)
     
-    clean_llm_code_file(script_text)
+    clean_llm_code_file(script_path)
     
     # 2. Extract class name
     #try:
