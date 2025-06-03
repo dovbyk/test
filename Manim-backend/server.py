@@ -16,18 +16,18 @@ def generate():
         return jsonify({"error": "No prompt provided"}), 400
 
     # 1. Get Manim script from LLM
-    script_text = generate_manim_script(prompt)
+    script_path = generate_manim_script(prompt)
     
     clean_llm_code_file(script_text)
     
     # 2. Extract class name
-    try:
-        class_name = extract_class_name(script_text)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
+    #try:
+    #    class_name = extract_class_name(script_text)
+    #except Exception as e:
+     #   return jsonify({"error": str(e)}), 400
 
     # 3. Save script
-    script_path, script_id = save_script(script_text, TEMP_DIR)
+    # script_path, script_id = save_script(script_text, TEMP_DIR)
 
     # 4. Render video
     try:
@@ -36,4 +36,4 @@ def generate():
         return jsonify({"error": f"Render failed: {e}"}), 500
 
     # 5. Serve video
-    return send_file(video_path, mimetype="video/mp4", as_attachment=True, download_name=f"{script_id}.mp4")
+    return send_file(video_path, mimetype="video/mp4", as_attachment=True, download_name="Shit.mp4")
