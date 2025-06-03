@@ -40,12 +40,11 @@ def save_script(script_text, directory):
         f.write(script_text)
     return script_path, script_id
 
-def render_manim(script_path, class_name, output_dir):
+def render_manim(script_path, output_dir):
     cmd = [
         "manim",
         "-pql",
         script_path,
-        class_name,
         "--media_dir", output_dir
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -55,7 +54,7 @@ def render_manim(script_path, class_name, output_dir):
         output_dir, "videos",
         os.path.splitext(os.path.basename(script_path))[0],
         "480p15",
-        f"{class_name}.mp4"
+        "FinalOutput.mp4"
     )
     if not os.path.exists(video_path):
         raise FileNotFoundError("Rendered video not found.")
