@@ -58,7 +58,7 @@ def render_manim(script_path, output_dir, class_name):
         manim_path,
         "-pql",
         script_path,
-        class_name
+        class_name,
         "--media_dir", output_dir
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
