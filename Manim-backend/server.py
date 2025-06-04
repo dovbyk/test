@@ -20,11 +20,11 @@ def generate():
     print("Cleaning started")
     clean_llm_code_file(script_path)
     
-    # 2. Extract class name
-    #try:
-    #    class_name = extract_class_name(script_text)
-    #except Exception as e:
-     #   return jsonify({"error": str(e)}), 400
+     #2. Extract class name
+    try:
+        class_name = extract_class_name(script_text)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
     # 3. Save script
     # script_path, script_id = save_script(script_text, TEMP_DIR)
