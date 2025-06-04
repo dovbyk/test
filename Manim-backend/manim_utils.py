@@ -24,6 +24,8 @@ def clean_llm_code_file(filepath):
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(code.strip() + '\n')
 
+    print("Clean completed from inside the function")
+
 
 
 
@@ -38,9 +40,12 @@ def save_script(script_text, directory):
     script_path = os.path.join(directory, f"{script_id}.py")
     with open(script_path, "w") as f:
         f.write(script_text)
+
+    print("Saved the script")
     return script_path, script_id
 
 def render_manim(script_path, output_dir):
+    print("Starting calling render_manim")
     cmd = [
         "manim",
         "-pql",
@@ -58,4 +63,6 @@ def render_manim(script_path, output_dir):
     )
     if not os.path.exists(video_path):
         raise FileNotFoundError("Rendered video not found.")
+
+    print("Sending video path from render manim function")
     return video_path
