@@ -70,6 +70,9 @@ def construct(self):
 -Prioritize error-free execution and educational clarity over complexity or visual flair.
 -Narration and animation must be tightly synchronized, step by step.
 -The code should be suitable for any topic the user requests, following the above structure and style.
+-Do not use .get_edge() or any method that takes a direction as an argument on Manim mobjects.
+To get a specific edge or point, use .get_top(), .get_bottom(), .get_left(), .get_right(), or .get_center(), each with no arguments.
+Offset points by adding direction vectors (e.g., + UP * 0.1) if needed
 
 Model, generate the code so that the final video matches the educational, stepwise, and narrative-driven style described above, using relevant examples and visual progression for any topic the user requests.
 """
