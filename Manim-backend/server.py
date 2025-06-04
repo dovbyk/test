@@ -17,7 +17,7 @@ def generate():
 
     # 1. Get Manim script from LLM
     script_path = generate_manim_script(prompt)
-    
+    print("Cleaning started")
     clean_llm_code_file(script_path)
     
     # 2. Extract class name
@@ -30,10 +30,12 @@ def generate():
     # script_path, script_id = save_script(script_text, TEMP_DIR)
 
     # 4. Render video
+    print("Clean completed..")
     try:
         video_path = render_manim(script_path, TEMP_DIR)
     except Exception as e:
         return jsonify({"error": f"Render failed: {e}"}), 500
 
+    print("Sending Video File")
     # 5. Serve video
     return send_file(video_path, mimetype="video/mp4", as_attachment=True, download_name="Shit.mp4")
