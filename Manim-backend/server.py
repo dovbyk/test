@@ -22,7 +22,7 @@ def generate():
     
      #2. Extract class name
     try:
-        class_name = extract_class_name(script_text)
+        class_name = extract_class_name(script_path)
         print(f"Class name extracted and it is {class_name}")
     except Exception as e:
         return jsonify({"error": str(e)}), 400
