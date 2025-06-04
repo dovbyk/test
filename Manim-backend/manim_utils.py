@@ -32,7 +32,7 @@ def clean_llm_code_file(filepath):
 
 def extract_class_name(script_path):
     with open(script_path, 'r', encoding='utf-8') as f:
-    script_text = f.read()
+        script_text = f.read()
     
     match = re.search(r'class\s+(\w+)\s*\(\s*VoiceoverScene\s*\)\s*:', script_text)
     if match:
