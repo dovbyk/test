@@ -45,17 +45,20 @@ def save_script(script_text, directory):
     print("Saved the script")
     return script_path, script_id
 
-def render_manim(script_path, output_dir):
+def render_manim(script_path, output_dir, class_name):
     print("Starting calling render_manim")
+    print(f"Class name extracted is {class_name}")
     
     manim_path = shutil.which("manim")
     if not manim_path:
         raise RuntimeError("Manim executable not found in PATH")
-    
+
+    print(f"Going to run command and look at manim path {manim_path}")
     cmd = [
         manim_path,
         "-pql",
         script_path,
+        class_name
         "--media_dir", output_dir
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -65,8 +68,10 @@ def render_manim(script_path, output_dir):
         output_dir, "videos",
         os.path.splitext(os.path.basename(script_path))[0],
         "480p15",
-        "FinalOutput.mp4"
+        f"{class_name}.mp4"
     )
+
+    print(f"Printing the current video path {video_path}")
     if not os.path.exists(video_path):
         raise FileNotFoundError("Rendered video not found.")
 
