@@ -73,7 +73,7 @@ def construct(self):
 -Do not use .get_edge() or any method that takes a direction as an argument on Manim mobjects.
 To get a specific edge or point, use .get_top(), .get_bottom(), .get_left(), .get_right(), or .get_center(), each with no arguments.
 Offset points by adding direction vectors (e.g., + UP * 0.1) if needed
-
+-Never use ImageMobject, SVGMobject, or any code that references external files (images, videos, SVGs, data, etc). Only use built-in Manim objects. All assets must be generated within the script itself.
 Model, generate the code so that the final video matches the educational, stepwise, and narrative-driven style described above, using relevant examples and visual progression for any topic the user requests.
 """
     )
