@@ -2,6 +2,7 @@ import re
 import os
 import uuid
 import subprocess
+import shutil
 
 
 
@@ -46,8 +47,13 @@ def save_script(script_text, directory):
 
 def render_manim(script_path, output_dir):
     print("Starting calling render_manim")
+    
+    manim_path = shutil.which("manim")
+    if not manim_path:
+        raise RuntimeError("Manim executable not found in PATH")
+    
     cmd = [
-        "manim",
+        manim_path,
         "-pql",
         script_path,
         "--media_dir", output_dir
