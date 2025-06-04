@@ -23,6 +23,7 @@ def generate():
      #2. Extract class name
     try:
         class_name = extract_class_name(script_text)
+        print(f"Class name extracted and it is {class_name}")
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
@@ -32,7 +33,7 @@ def generate():
     # 4. Render video
     print("Clean completed..")
     try:
-        video_path = render_manim(script_path, TEMP_DIR)
+        video_path = render_manim(script_path, TEMP_DIR, class_name)
     except Exception as e:
         return jsonify({"error": f"Render failed: {e}"}), 500
 
