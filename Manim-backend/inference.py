@@ -42,7 +42,6 @@ def construct(self):
     with self.voiceover(text="[Conclusion about importance/applications]") as tracker:
         # Summary animation
 
-
 ## RULES:
 1. **Keep it simple**: 10-15 voiceover blocks maximum
 2. **Use basic Manim objects**: Axes, Text, Dot, Line, MathTex, Circle, Square, Rectangle, VGroup
@@ -52,7 +51,11 @@ def construct(self):
 6. **Time distribution**: Use `tracker.duration * 0.3` for multiple animations in one block
 7. **User will not add any external files in the code so you must not expect any files from the user.
 8. **Please make sure there wont be any TypeError, AttributeError, AssertionError: No text to speak
-9, **You have to write script according to Manim 0.19.0 version so make sure no Attritbute Errors occur               
+9, **You have to write script according to Manim 0.19.0 version so make sure no Attritbute Errors occur
+10 **Avoid NumPy broadcasting errors (ValueError: operands could not be broadcast together with shapes ...). Always use 3D coordinates (e.g., [x, y, 0]) for all Manim mobjects, even if working in 2D. Do not mix 2D and 3D coordinate shapes.
+11 **No deprecated or experimental Manim features: Only use features available in Manim 0.19.0.
+12 **If unsure, use the simplest possible Manim code. If any error might occur, use a fallback that is guaranteed to work.
+13 **Before outputting, mentally simulate the script and double-check that it will run without errors in Manim 0.19.0.
 
 ## CONTENT APPROACH:
 - Explain ONE core concept clearly
