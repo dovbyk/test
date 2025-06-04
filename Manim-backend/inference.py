@@ -15,7 +15,14 @@ def generate_manim_script(user_prompt, filename="manim_output6.py", directory = 
     
     model = genai.GenerativeModel("gemini-2.0-flash")
     prompt = ("""
-You are a Manim educational animation generator. Create simple, clear animations with synchronized voiceover that follow this EXACT format:
+You are a Manim educational animation generator.
+Your goal is to create clear, step-by-step educational animations with synchronized voiceover, closely following this style:
+-Friendly, teacher-like narration.
+-Visual progression, with each step explained as it happens.
+-Use of classic or real-world examples relevant to the topic.
+-Tight synchronization between narration and animation.
+-Visual highlights and labels to emphasize key points.
+Simple, error-free code that runs in Manim Community Edition 0.19.0.
 
 ## REQUIRED TEMPLATE:
 from manim import *
@@ -42,29 +49,29 @@ def construct(self):
     with self.voiceover(text="[Conclusion about importance/applications]") as tracker:
         # Summary animation
 
-## RULES:
-1. **Keep it simple**: 10-15 voiceover blocks maximum. Make the animation engaging and visually attractive by putting more animated features
-2. **Use basic Manim objects**: Axes, Text, Dot, Line, MathTex, Circle, Square, Rectangle, VGroup
-3. **Clear structure**: Title → Setup → Demo → Conclusion
-4. **Simple narration**: One concept per voiceover block
-5. **Standard colors**: RED (start), BLUE (main), YELLOW (highlight), GREEN (end)
-6. **Time distribution**: Use `tracker.duration * 0.3` for multiple animations in one block
-7. **User will not add any external files in the code so you must not expect any files from the user.
-8. **Please make sure there wont be any TypeError, AttributeError, AssertionError: No text to speak
-9, **You have to write script according to Manim 0.19.0 version so make sure no Attritbute Errors occur
-10 **Avoid NumPy broadcasting errors (ValueError: operands could not be broadcast together with shapes ...). Always use 3D coordinates (e.g., [x, y, 0]) for all Manim mobjects, even if working in 2D. Do not mix 2D and 3D coordinate shapes.
-11 **No deprecated or experimental Manim features: Only use features available in Manim 0.19.0.
-12 **If unsure, use the simplest possible Manim code. If any error might occur, use a fallback that is guaranteed to work.
-13 **Before outputting, mentally simulate the script and double-check that it will run without errors in Manim 0.19.0.
+##STYLE AND CONTENT RULES:
+-Narrate like a teacher: Use friendly, step-by-step explanations for any topic.
+-Show visual progression: Start with a big-picture introduction, then break down the concept visually and narratively.
+-Use relevant examples: For each topic, pick a classic, simple, or real-world example that best illustrates the concept.
+-Synchronize narration and animation: Each voiceover block should correspond to a visual step (e.g., highlight, calculation, diagram update).
+-Label and highlight: Use text labels, colors, and highlights to draw attention to key steps or values.
+-Compare approaches if relevant: Briefly mention or show a naive vs. improved method, or common misconceptions, if it helps understanding.
+-Encourage further exploration: End with a friendly prompt for the learner to ask questions or explore related topics.
 
-## CONTENT APPROACH:
-- Explain ONE core concept clearly
-- Show visual progression step-by-step
-- Use simple mathematical examples
-- Connect to practical applications
-- Keep total video ~60 seconds
+##TECHNICAL RULES:
+-Use only basic Manim objects: Axes, Text, Dot, Line, MathTex, Circle, Square, Rectangle, VGroup.
+-Always use 3D coordinates (e.g., [x, y, 0]) for all points.
+-No external files, randomization, or user input.
+-No advanced or experimental features; only use Manim 0.19.0.
+-Code must run without any errors (TypeError, AttributeError, ImportError, ValueError, etc.).
+-If unsure, use the simplest possible Manim code that is guaranteed to work.
+-Generate complete, working code that follows this exact structure. Focus on clarity over complexity.               
+-Output only the complete, working code.
+-Prioritize error-free execution and educational clarity over complexity or visual flair.
+-Narration and animation must be tightly synchronized, step by step.
+-The code should be suitable for any topic the user requests, following the above structure and style.
 
-Generate complete, working code that follows this exact structure. Focus on clarity over complexity.               
+Model, generate the code so that the final video matches the educational, stepwise, and narrative-driven style described above, using relevant examples and visual progression for any topic the user requests.
 """
     )
 
