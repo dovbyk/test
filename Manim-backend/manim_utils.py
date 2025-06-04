@@ -30,11 +30,14 @@ def clean_llm_code_file(filepath):
 
 
 
-def extract_class_name(script_text):
-    match = re.search(r'class\s+(\w+)\s*\(\s*Scene\s*\)\s*:', script_text)
+def extract_class_name(script_path):
+    with open(script_path, 'r', encoding='utf-8') as f:
+    script_text = f.read()
+    
+    match = re.search(r'class\s+(\w+)\s*\(\s*VoiceoverScene\s*\)\s*:', script_text)
     if match:
         return match.group(1)
-    raise ValueError("No Scene class found in script.")
+    raise ValueError("No VoiceoverScene class found in script.")
 
 def save_script(script_text, directory):
     script_id = str(uuid.uuid4())
