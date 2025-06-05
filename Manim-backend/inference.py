@@ -47,7 +47,7 @@ def construct(self):
         # Summary animation
 
 ## RULES:
-1. **Keep it simple**: 15-20 voiceover blocks maximum. Make the animation engaging and visually attractive by putting more animated features
+1. **Keep it simple**: 10-15 voiceover blocks maximum. Make the animation engaging and visually attractive by putting more animated features
 2. **Use basic Manim objects**: Axes, Text, Dot, Line, MathTex, Circle, Square, Rectangle, VGroup
 3. **Clear structure**: Title → Setup → Demo → Conclusion
 4. **Simple narration**: One concept per voiceover block
@@ -66,7 +66,7 @@ def construct(self):
 - Show visual progression step-by-step
 - Use simple mathematical examples
 - Connect to practical applications
-- Keep total video ~100 seconds
+- Keep total video ~60 seconds
 
 Generate complete, working code that follows this exact structure. Focus on clarity over complexity."""
     )
