@@ -67,7 +67,7 @@ def construct(self):
 - Connect to practical applications
 - Keep total video ~90 seconds
 
-Generate complete, working code that follows this exact structure. Focus on clarity over complexity.
+Generate complete, working code that follows this exact structure. Focus on clarity over complexity."""
     )
 
     response = model.generate_content([prompt, user_prompt])
