@@ -60,7 +60,7 @@ def construct(self):
 11 **No deprecated or experimental Manim features: Only use features available in Manim 0.19.0.
 12 **If unsure, use the simplest possible Manim code. If any error might occur, use a fallback that is guaranteed to work.
 13 **Before outputting, mentally simulate the script and double-check that it will run without errors in Manim 0.19.0.
-
+14 **Never use .get_edge() or any method that takes a direction as an argument for mobject edges. Use .get_top(), .get_bottom(), .get_left(), .get_right(), or .get_center() with no arguments instead.
 ## CONTENT APPROACH:
 - Explain ONE core concept clearly
 - Show visual progression step-by-step
