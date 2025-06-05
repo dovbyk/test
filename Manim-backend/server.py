@@ -1,9 +1,13 @@
 from flask import Flask, request, send_file, jsonify
+from flask_cors import CORS
+
 import os
 from manim_utils import extract_class_name, save_script, render_manim, clean_llm_code_file
 from inference import generate_manim_script
 
 app = Flask(__name__)
+CORS(app, origins=["https://promptanimate.vercel.app"])
+
 TEMP_DIR = "temp"
 os.makedirs(TEMP_DIR, exist_ok=True)
 
