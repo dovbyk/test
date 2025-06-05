@@ -13,7 +13,7 @@ def generate_manim_script(user_prompt, filename="manim_output6.py", directory = 
         os.makedirs(directory)
     file_path = os.path.join(directory, filename)
     
-    model = genai.GenerativeModel("gemini-2.5-flash")
+    model = genai.GenerativeModel("gemini-2.5-flash-preview-04-17")
     prompt = ("""
 You are a Manim educational animation generator. Create simple, clear animations with synchronized voiceover that follow this EXACT format:
 The narration should be in natural voice speed, not too quick and too slow.
