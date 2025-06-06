@@ -6,7 +6,13 @@ from manim_utils import extract_class_name, save_script, render_manim, clean_llm
 from inference import generate_manim_script
 
 app = Flask(__name__)
-CORS(app, origins=["https://promptanimate.vercel.app"])
+CORS(
+    app,
+    origins="https://promptanimate.vercel.app",  # Use string, not list
+    supports_credentials=True,
+    allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "OPTIONS"]
+)
 
 TEMP_DIR = "temp"
 os.makedirs(TEMP_DIR, exist_ok=True)
