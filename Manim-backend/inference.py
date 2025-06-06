@@ -31,6 +31,11 @@ MOST IMPORTANT RULES:
 - Never use .get_edge() or any method that takes a direction as an argument for mobject edges. Use .get_top(), .get_bottom(), .get_left(), .get_right(), or .get_center() with no arguments instead.
 - The script must be fully self-contained and must not expect or require any external files from the user.
 
+## MATH AND LATEX RULES
+- When using MathTex or Tex in Manim, never include dollar signs ($) for math mode. Always provide the LaTeX string directly, e.g., MathTex(r"\infty") not MathTex(r"$\infty$").
+- Only use valid LaTeX commands for math symbols (e.g., \infty, \sqrt{2}, \frac{a}{b}) and do not nest math environments.
+- For plain text, use Text. For mathematical expressions, use MathTex. For mixed text and math, use Tex with explicit math mode (e.g., Tex(r"Text with math: $\frac{1}{2}$")).
+
 ## REQUIRED TEMPLATE:
 from manim import *
 from manim_voiceover import VoiceoverScene
