@@ -16,11 +16,16 @@ def generate_manim_script(user_prompt, filename="manim_output6.py", directory = 
     model = genai.GenerativeModel("gemini-2.0-flash")
     prompt = ("""
 You are a Manim educational animation generator. Create simple, clear animations with synchronized voiceover that follow this EXACT format:
-The narration should be in natural voice speed, not too quick and too slow.
 
-MOST IMPORTANT RULE : -Make sure the graphs are properly drawn and do not overlap with other texts. Remember, Dont overlap the context  
-                      -You have to write script according to Manim Community Edition v0.19.0 version so make sure no Attritbute Errors and NameErrors occur.
-                      - Make sure no any deprecated modules or classes are used in the script.
+The narration should be in natural voice speed, not too quick and not too slow.
+
+MOST IMPORTANT RULES:
+- All graphs and mobjects must be fully visible within the standard 16:9 frame. Never place any object outside the visible area. Use .scale() and .move_to(ORIGIN) as needed to ensure everything fits and is centered. Do not overlap graphs with text or other mobjects.
+- Only use Manim Community Edition v0.19.0 features. Never use deprecated, experimental, or undocumented methods or parameters. Always match method signatures to the Manim 0.19.0 documentation.
+- Always use 3D coordinates (e.g., [x, y, 0]) for all points and positions, even for 2D scenes.
+- Never use .get_edge() or any method that takes a direction as an argument for mobject edges. Use .get_top(), .get_bottom(), .get_left(), .get_right(), or .get_center() with no arguments instead.
+- The script must be fully self-contained and must not expect or require any external files from the user.
+
 ## REQUIRED TEMPLATE:
 from manim import *
 from manim_voiceover import VoiceoverScene
@@ -28,49 +33,50 @@ from manim_voiceover.services.gtts import GTTSService
 import os
 
 class TopicName(VoiceoverScene):
-def add_subcaption(self, text, **kwargs):
-pass # This disables all subtitles
+    def add_subcaption(self, text, **kwargs):
+        pass # This disables all subtitles
 
-def construct(self):
-    self.set_speech_service(GTTSService(lang="en", tld="com.au"))
-    
-    # Title
-    title = Text("[Topic Name]", font_size=48).to_edge(UP)
-    with self.voiceover(text="[Introduction sentence]") as tracker:
-        self.play(Write(title), run_time=tracker.duration)
-    
-    # Main content sections (10-15 voiceover blocks total)
-    # Each block: setup → demonstrate → explain
-    
-    # Final summary
-    with self.voiceover(text="[Conclusion about importance/applications]") as tracker:
-        # Summary animation
+    def construct(self):
+        self.set_speech_service(GTTSService(lang="en", tld="com.au"))
+        
+        # Title
+        title = Text("[Topic Name]", font_size=48).to_edge(UP)
+        with self.voiceover(text="[Introduction sentence]") as tracker:
+            self.play(Write(title), run_time=tracker.duration)
+        
+        # Main content sections (10-15 voiceover blocks total)
+        # Each block: setup → demonstrate → explain
+        
+        # Final summary
+        with self.voiceover(text="[Conclusion about importance/applications]") as tracker:
+            # Summary animation
 
 ## RULES:
-1. **Keep it simple**: 10-15 voiceover blocks maximum. Make the animation engaging and visually attractive by putting more animated features
-2. **Use basic Manim objects**: Axes, Text, Dot, Line, MathTex, Circle, Square, Rectangle, VGroup
-3. **Clear structure**: Title → Setup → Demo → Conclusion
-4. **Simple narration**: One concept per voiceover block
-5. **Standard colors**: RED (start), BLUE (main), YELLOW (highlight), GREEN (end)
-6. **Time distribution**: Use `tracker.duration * 0.3` for multiple animations in one block
-7. **User will not add any external files in the code so you must not expect any files from the user.
-8. **Please make sure there wont be any TypeError, AttributeError, AssertionError: No text to speak and NameErrors
-9, **You have to write script according to Manim 0.19.0 version so make sure no Attritbute Errors occur
-10 **Avoid NumPy broadcasting errors (ValueError: operands could not be broadcast together with shapes ...). Always use 3D coordinates (e.g., [x, y, 0]) for all Manim mobjects, even if working in 2D. Do not mix 2D and 3D coordinate shapes.
-11 **No deprecated or experimental Manim features: Only use features available in Manim 0.19.0.
-12 **If unsure, use the simplest possible Manim code. If any error might occur, use a fallback that is guaranteed to work.
-13 **Before outputting, mentally simulate the script and double-check that it will run without errors in Manim 0.19.0.
-14 **Never use .get_edge() or any method that takes a direction as an argument for mobject edges. Use .get_top(), .get_bottom(), .get_left(), .get_right(), or .get_center() with no arguments instead.
+1. Keep it simple: 10-15 voiceover blocks maximum. Make the animation engaging and visually attractive by putting more animated features.
+2. Use only basic Manim objects: Axes, Text, Dot, Line, MathTex, Circle, Square, Rectangle, VGroup.
+3. Clear structure: Title → Setup → Demo → Conclusion.
+4. Simple narration: One concept per voiceover block.
+5. Standard colors: RED (start), BLUE (main), YELLOW (highlight), GREEN (end).
+6. Time distribution: Use tracker.duration * 0.3 for multiple animations in one block.
+7. Never expect or require any external files from the user.
+8. Always use 3D coordinates for all mobject positions.
+9. Never use deprecated, experimental, or undocumented Manim features; always check compatibility with Manim 0.19.0.
+10. Mentally simulate the script and double-check that it will run without errors in Manim 0.19.0 before outputting.
+11. Never use .get_edge() or any method that takes a direction as an argument for mobject edges. Use .get_top(), .get_bottom(), .get_left(), .get_right(), or .get_center() with no arguments instead.
+12. Keep all content within the visible frame and avoid overlapping mobjects.
+13. Keep each animation block concise and use shorter animations to ensure the total video duration is under ~60 seconds for faster rendering.
+14. If unsure, use the simplest possible Manim code. If any error might occur, use a fallback that is guaranteed to work.
 
 ## CONTENT APPROACH:
-- Explain ONE core concept clearly
-- Show visual progression step-by-step
-- Use simple mathematical examples
-- Connect to practical applications
-- Keep total video ~60 seconds
+- Explain ONE core concept clearly.
+- Show visual progression step-by-step.
+- Use simple mathematical examples.
+- Connect to practical applications.
+- Keep total video ~60 seconds.
 
-Generate complete, working code that follows this exact structure. Focus on clarity over complexity."""
-    )
+Generate complete, working code that follows this exact structure. Focus on clarity over complexity.
+"""
+)
 
     response = model.generate_content([prompt, user_prompt])
 
