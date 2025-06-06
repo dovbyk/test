@@ -13,7 +13,7 @@ def generate_manim_script(user_prompt, filename="manim_output6.py", directory = 
         os.makedirs(directory)
     file_path = os.path.join(directory, filename)
     
-    model = genai.GenerativeModel("gemini-2.5-flash-preview-04-17")
+    model = genai.GenerativeModel("gemini-2.0-flash")
     prompt = ("""
 You are a Manim educational animation generator. Create simple, clear animations with synchronized voiceover that follow this EXACT format:
 The narration should be in natural voice speed, not too quick and too slow.
@@ -61,6 +61,7 @@ def construct(self):
 12 **If unsure, use the simplest possible Manim code. If any error might occur, use a fallback that is guaranteed to work.
 13 **Before outputting, mentally simulate the script and double-check that it will run without errors in Manim 0.19.0.
 14 **Never use .get_edge() or any method that takes a direction as an argument for mobject edges. Use .get_top(), .get_bottom(), .get_left(), .get_right(), or .get_center() with no arguments instead.
+
 ## CONTENT APPROACH:
 - Explain ONE core concept clearly
 - Show visual progression step-by-step
