@@ -66,6 +66,7 @@ def render_manim(script_path, output_dir, class_name):
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
+        print("LLM generated code had error")
         raise RuntimeError(f"Manim error: {result.stderr}")
     video_path = os.path.join(
         output_dir, "videos",
