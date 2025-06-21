@@ -26,27 +26,34 @@ def generate():
         return jsonify({"error": "No prompt provided"}), 400
 
     # 1. Get Manim script from LLM
-    script_path = generate_manim_script(prompt)
-    print("Cleaning started")
-    clean_llm_code_file(script_path)
+    MAX_RETRIES = 3
+    attempt = 0
+    error_msg = None
+    current_script = None
+
+    while attempt < MAX_RETRIES:
+        try:
+            attempt += 1  
+            print(f"[Attempt {attempt}] Trying to generate Manim Script... ")
+            script_path = generate_manim_script(prompt, current_script, error_msg)
+            print("LLM Generated Manim Script file")
+            clean_llm_code_file(script_path)
+            class_name = extract_class_name(script_path)
+            video_path = render_manim(script_path, TEMP_DIR, class_name)
+
+            
+            return send_file(video_path, mimetype="video/mp4", as_attachment=True, download_name="render.mp4")
+        except Exception as e:
+            error_msg = str(e)
+
+            if script_path and os.path.exists(script_path):
+                with open(script_path, "r") as f:
+                    current_script = f.read()
+
+            
+            print(f"[Attempt {attempt}] Render failed. Retrying...\nError: {error_msg}\n")
     
-     #2. Extract class name
-    try:
-        class_name = extract_class_name(script_path)
-        print(f"Class name extracted and it is {class_name}")
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
-
-    # 3. Save script
-    # script_path, script_id = save_script(script_text, TEMP_DIR)
-
-    # 4. Render video
-    print("Clean completed..")
-    try:
-        video_path = render_manim(script_path, TEMP_DIR, class_name)
-    except Exception as e:
-        return jsonify({"error": f"Render failed: {e}"}), 500
-
-    print("Sending Video File")
-    # 5. Serve video
-    return send_file(video_path, mimetype="video/mp4", as_attachment=True, download_name="Shit.mp4")
+    return jsonify({
+        "error": f"All {MAX_RETRIES} attempts failed.",
+        "last_error": error_msg
+    }), 500
