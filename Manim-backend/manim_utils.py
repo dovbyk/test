@@ -67,7 +67,14 @@ def render_manim(script_path, output_dir, class_name):
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         print("LLM generated code had error")
-        raise RuntimeError(f"Manim error: {result.stderr}")
+
+        # Extract only the traceback portion
+        stderr = result.stderr
+        traceback_index = stderr.find("Traceback")
+        short_error = stderr[traceback_index:] if traceback_index != -1 else stderr
+
+        raise RuntimeError(short_error.strip())
+
     video_path = os.path.join(
         output_dir, "videos",
         os.path.splitext(os.path.basename(script_path))[0],
