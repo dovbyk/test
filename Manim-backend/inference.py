@@ -1,20 +1,23 @@
-import google.generativeai as genai
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
 
-GEMINI = os.getenv("GENAI_API_KEY")
+def generate_manim_script(user_prompt, previous_script=None, previous_error = None, filename="manim_output6.py", directory = "temp"):
+    import google.generativeai as genai
+    import random
+    
+    from dotenv import load_dotenv
+    load_dotenv()
+    keys = os.getenv("GEMINI_KEYS", "").split(",")
+    genai.configure(api_key=random.choice(keys))
 
-genai.configure(api_key=GEMINI)
-
-def generate_manim_script(user_prompt, filename="manim_output6.py", directory = "temp"):
     if not os.path.exists(directory):
         os.makedirs(directory)
+
     file_path = os.path.join(directory, filename)
-    
     model = genai.GenerativeModel("gemini-2.0-flash")
-    prompt = ("""
+
+    if not previous_script or not previous_error:
+        system_prompt = ("""
 You are a Manim educational animation generator. Create simple, clear animations with synchronized voiceover that follow this EXACT format:
 The narration should be in natural voice speed, not too quick and not too slow.
 
@@ -100,20 +103,29 @@ class TopicName(VoiceoverScene):
 - Connect to practical applications.
 - Keep total video at most or near about 120 seconds.
 
-Generate complete, working code that follows this exact structure. Focus on clarity over complexity.."""
-    )
+Generate complete, working code that follows this exact structure. Focus on clarity over complexity..""" 
+)
+        
+        final_prompt = [system_prompt, user_prompt]
+    else:
+        final_prompt = [
+            "You are a Manim animation code expert.",
+            f"## User Prompt:\n{user_prompt}",
+            f"## Previous Script (with Manim error):\n```python\n{previous_script}\n```",
+            f"## Error Message:\n{previous_error}",
+            "Please fix only the parts of the code that cause the error. Do not change the overall structure, naming conventions, voiceover blocks, or formatting.",
+            "Avoid modifying parts of the code that are already valid. Only minimal necessary edits should be made.",
+            "Only use the Manim 0.19.0 version compatible methods and classes."
+            "Return corrected code only. No markdown formatting, no explanations."
+        ]
 
-    response = model.generate_content([prompt, user_prompt])
+    response = model.generate_content(final_prompt)
 
-
+    
     if response.text:
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(response.text)
-        
-        abs_path = os.path.abspath(file_path)
-        print(f" Manim script written to '{abs_path}'")
-        return abs_path
-
+        return os.path.abspath(file_path)
     else:
-        print("No response from Gemini.")
-        return None
+        raise RuntimeError("Gemini returned empty response.")
+    
