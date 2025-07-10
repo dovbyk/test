@@ -2,6 +2,7 @@ from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
 
 import os
+import time
 from manim_utils import extract_class_name, save_script, render_manim, clean_llm_code_file
 from inference import generate_manim_script
 
@@ -16,6 +17,13 @@ CORS(
 
 TEMP_DIR = "temp"
 os.makedirs(TEMP_DIR, exist_ok=True)
+
+
+@app.route('/wake-up', methods=['GET'])
+def start_server():
+    time.sleep(15)
+    return jsonify({'msg: 'ok'}), 200
+    
 
 
 @app.route('/generate', methods=['POST'])
