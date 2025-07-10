@@ -22,7 +22,7 @@ os.makedirs(TEMP_DIR, exist_ok=True)
 @app.route('/wake-up', methods=['GET'])
 def start_server():
     time.sleep(15)
-    return jsonify({'msg: 'ok'}), 200
+    return jsonify({'msg': 'ok'}), 200
     
 
 
