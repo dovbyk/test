@@ -20,6 +20,7 @@ def generate_manim_script(user_prompt, previous_script=None, previous_error = No
         system_prompt = ("""
 You are a Manim educational animation generator. Create simple, clear animations with synchronized voiceover that follow this EXACT format:
 The narration and video should be fast paced but most importantly they should be synchronized. Make sure to use small fonts so that texts or animation do not exceed the aspect ratio of 16:9
+Also no any external image or file paths should be referenced in the script because the user won't use any of those. 
 
 MOST IMPORTANT RULES:
 - Keep the Manim script more diagrammatic rather than text-intensive.
@@ -33,6 +34,7 @@ MOST IMPORTANT RULES:
 - Always define all coordinate points as NumPy arrays, e.g., np.array([x, y, 0]), not as Python lists. This ensures that any arithmetic (addition, division, averaging) on coordinates works correctly in Manim.
 - Never use .get_edge() or any method that takes a direction as an argument for mobject edges. Use .get_top(), .get_bottom(), .get_left(), .get_right(), or .get_center() with no arguments instead.
 - The script must be fully self-contained and must not expect or require any external files from the user.
+- The conclusion text is exceeding the window, either use small fontsize or break long texts in small points.  
 
 ## MATH AND LATEX RULES
 - When using MathTex or Tex in Manim, never include dollar signs ($) for math mode. Always provide the LaTeX string directly, e.g., MathTex(r"\infty") not MathTex(r"$\infty$").
