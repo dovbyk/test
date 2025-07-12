@@ -19,7 +19,7 @@ def generate_manim_script(user_prompt, previous_script=None, previous_error = No
     if not previous_script or not previous_error:
         system_prompt = ("""
 You are a Manim educational animation generator. Create simple, clear animations with synchronized voiceover that follow this EXACT format:
-The narration should be in natural voice speed, not too quick and not too slow.
+The narration and video should be fast paced but most importantly they should be synchronized. Make sure to use small fonts so that texts or animation do not exceed the aspect ratio of 16:9
 
 MOST IMPORTANT RULES:
 - Keep the Manim script more diagrammatic rather than text-intensive.
