@@ -115,6 +115,7 @@ Generate complete, working code that follows this exact structure. Focus on clar
             f"## User Prompt:\n{user_prompt}",
             f"## Previous Script (with Manim error):\n```python\n{previous_script}\n```",
             f"## Error Message:\n{previous_error}",
+            "The code should not use reference path to any external file, Any error caused by it, should remove the usage to external references or links to another files."
             "Please fix only the parts of the code that cause the error. Do not change the overall structure, naming conventions, voiceover blocks, or formatting.",
             "Avoid modifying parts of the code that are already valid. Only minimal necessary edits should be made.",
             "Only use the Manim 0.19.0 version compatible methods and classes."
