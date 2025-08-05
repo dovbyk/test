@@ -14,7 +14,7 @@ def generate_manim_script(user_prompt, previous_script=None, previous_error = No
         os.makedirs(directory)
 
     file_path = os.path.join(directory, filename)
-    model = genai.GenerativeModel("gemini-2.5-flash")
+    model = genai.GenerativeModel("gemini-2.5-pro")
 
     if not previous_script or not previous_error:
         system_prompt = ("""
