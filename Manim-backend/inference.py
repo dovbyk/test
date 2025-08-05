@@ -14,7 +14,7 @@ def generate_manim_script(user_prompt, previous_script=None, previous_error = No
         os.makedirs(directory)
 
     file_path = os.path.join(directory, filename)
-    model = genai.GenerativeModel("gemini-2.5-pro")
+    model = genai.GenerativeModel("gemini-2.5-flash")
 
     if not previous_script or not previous_error:
         system_prompt = ("""
@@ -102,7 +102,7 @@ class TopicName(VoiceoverScene):
         self.wait(2)
     
 GENERAL RULES & CONTENT APPROACH:
-Be Brief: Keep the total video length around 120 seconds, with 20-25 distinct voiceover/animation blocks.
+**Strict Time Limit:** The total video length MUST be between 90 and 120 seconds. Achieve this by using **15-20 voiceover/animation blocks maximum.** This is a critical constraint.
 
 Use Simple Objects: Stick to basic Manim objects: Axes, Text, Dot, Line, MathTex, Circle, Square, Rectangle, VGroup, Table, Graph.
 
