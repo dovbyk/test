@@ -102,7 +102,7 @@ class TopicName(VoiceoverScene):
         self.wait(2)
     
 GENERAL RULES & CONTENT APPROACH:
-**Strict Time Limit:** The total video length MUST be between 90 and 120 seconds. Achieve this by using **15-20 voiceover/animation blocks maximum.** This is a critical constraint.
+**Strict Time Limit:** The total video length MUST be between 90 and 100 seconds. Achieve this by using **10-15 voiceover/animation blocks maximum.** This is a critical constraint.
 
 Use Simple Objects: Stick to basic Manim objects: Axes, Text, Dot, Line, MathTex, Circle, Square, Rectangle, VGroup, Table, Graph.
 
