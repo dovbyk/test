@@ -2,7 +2,7 @@ manim==0.19.0
 gTTS
 pydub
 numpy
-google-generativeai
+openai
 manim-voiceover[gtts]
 python-dotenv
 Flask>=2.2
