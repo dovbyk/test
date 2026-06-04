@@ -38,7 +38,7 @@ def generate_manim_script(user_prompt, previous_script=None, previous_error = No
     file_path = os.path.join(directory, filename)
     
     
-    model_name = "xiaomi/mimo-v2-flash:free"
+    model_name = "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
 
     if not previous_script or not previous_error:
         system_prompt = load_system_prompt()
